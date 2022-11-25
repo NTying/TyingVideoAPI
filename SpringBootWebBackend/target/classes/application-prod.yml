@@ -1,0 +1,13 @@
+server:
+  port: 88
+
+debug: true
+logging:
+  level:
+    com.tying: debug
+
+spring:
+  boot:
+    admin:
+      client:
+        url: http://localhost:8888
