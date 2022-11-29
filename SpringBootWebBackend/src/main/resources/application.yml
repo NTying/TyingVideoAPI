@@ -15,10 +15,10 @@ spring:
   profiles:
     active: prod
 
-
-mybatis:
-  mapper-locations: classpath:mapper/*Mapper.xml  # mapper 映射文件路径
-  type-aliases-package: com.tying.domain          # 配置哪个包下的类有默认的别名
+# MyBatis 配置(和下面在 MyBatisPlus 配置一样的作用
+#mybatis:
+#  mapper-locations: classpath:mapper/*Mapper.xml  # mapper 映射文件路径
+#  type-aliases-package: com.tying.domain          # 配置哪个包下的类有默认的别名
 
 management:
   endpoints:
@@ -29,3 +29,16 @@ management:
   endpoint:
     health:
       show-details: always
+
+# 日志打印
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath*:/mapper/**/*.xml # mapper 映射文件路径
+  type-aliases-package: com.tying.domain        # 配置哪个包下的类有默认的别名
+  global-config:
+    db-config:
+      logic-delete-field: delFlag
+      logic-delete-value: 1
+      logic-not-delete-value: 0

@@ -415,7 +415,7 @@ public class BaseRedisUtils<E> {
      * @param value： Set value
      * @return
      */
-    public boolean hasValOnSetCache(String key, E value) {
+    public boolean hasValOnSet(String key, E value) {
         try {
             return redisTemplate.opsForSet().isMember(key, value);
         } catch (Exception e) {
@@ -430,7 +430,7 @@ public class BaseRedisUtils<E> {
      * @param key： redis key
      * @return
      */
-    public long getSetCacheSize(String key) {
+    public long getSetSize(String key) {
         try {
             return redisTemplate.opsForSet().size(key);
         } catch (Exception e) {
@@ -446,7 +446,7 @@ public class BaseRedisUtils<E> {
      * @param values： 可变参数，要移除的存在于 Set 中的值
      * @return
      */
-    public long delValFromSetCache(String key, E... values) {
+    public long delValsFromSet(String key, E... values) {
         try {
             Long count = redisTemplate.opsForSet().remove(key, values);
             return count;
@@ -463,7 +463,7 @@ public class BaseRedisUtils<E> {
      * @param value： value
      * @return
      */
-    public boolean setValToListCache(String key, E value) {
+    public boolean setValAsList(String key, E value) {
         try {
             redisTemplate.opsForList().rightPush(key, value);
             return true;
@@ -481,7 +481,7 @@ public class BaseRedisUtils<E> {
      * @param expireTime： 有效时间
      * @return
      */
-    public boolean setValToListCache(String key, E value, Long expireTime) {
+    public boolean setValAsList(String key, E value, Long expireTime) {
         try {
             if (expireTime == null) {
                 redisTemplate.opsForList().rightPush(key, value);
@@ -511,7 +511,7 @@ public class BaseRedisUtils<E> {
      * @param value： List value
      * @return
      */
-    public boolean setListToListCache(String key, List<E> value) {
+    public boolean setList(String key, List<E> value) {
         try {
             redisTemplate.opsForList().rightPushAll(key, value);
             return true;
@@ -529,7 +529,7 @@ public class BaseRedisUtils<E> {
      * @param expireTime： 有效时间
      * @return
      */
-    public boolean setListToListCache(String key, List<E> value, Long expireTime) {
+    public boolean setList(String key, List<E> value, Long expireTime) {
         try {
             if (expireTime == null) {
                 redisTemplate.opsForList().rightPushAll(key, value);
@@ -542,7 +542,7 @@ public class BaseRedisUtils<E> {
                     setExpire(key, expireTime);
                 } else {
                     //永不过期
-                    setListToListCache(key, value);
+                    setList(key, value);
                 }
             }
             return true;
@@ -553,14 +553,14 @@ public class BaseRedisUtils<E> {
     }
 
     /**
-     * 获取list缓存指定范围的数据
+     * 获取缓存的list指定范围的数据
      *
      * @param key： redis key
      * @param start： List start index
      * @param end： List end index
      * @return
      */
-    public List<E> getListCache(String key, Long start, Long end) {
+    public List<E> getList(String key, Long start, Long end) {
         try {
             return redisTemplate.opsForList().range(key, start, end);
         } catch (Exception e) {
@@ -575,7 +575,7 @@ public class BaseRedisUtils<E> {
      * @param key： redis key
      * @return
      */
-    public long getListCacheSize(String key) {
+    public long getListSize(String key) {
         try {
             return redisTemplate.opsForList().size(key);
         } catch (Exception e) {
@@ -591,7 +591,7 @@ public class BaseRedisUtils<E> {
      * @param index： List Index
      * @return
      */
-    public E getListCacheByIndex(String key, Long index) {
+    public E getListByIndex(String key, Long index) {
         try {
             return redisTemplate.opsForList().index(key, index);
         } catch (Exception e) {
@@ -608,7 +608,7 @@ public class BaseRedisUtils<E> {
      * @param value： 修改后的值
      * @return
      */
-    public boolean updateListCacheByIndex(String key, Long index, E value) {
+    public boolean updateListByIndex(String key, Long index, E value) {
         try {
             redisTemplate.opsForList().set(key, index, value);
             return true;
@@ -626,7 +626,7 @@ public class BaseRedisUtils<E> {
      * @param value： 需要移除的 List 中的数据的值
      * @return
      */
-    public long delValFromListCache(String key, Long count, E value) {
+    public long delValFromList(String key, Long count, E value) {
         try {
             Long remove = redisTemplate.opsForList().remove(key, count, value);
             return remove;

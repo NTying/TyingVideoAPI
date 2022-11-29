@@ -17,17 +17,18 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/user")
+@SuppressWarnings("all")
 public class UserController {
 
     @Autowired
     private IUserService userService;
 
     @RequestMapping("/all")
-    // @CrossOrigin
+    // @CrossOrigin 在 CorsConfig 配置类中配置了跨域请求设置，所以这里不用使用注解实现
     public ResponseResult findAll(@CurrentUserId String userId) {
 
         System.out.println(userId);
-        List<User> users = userService.findAll();
+        List<User> users = userService.list();
 
         return new ResponseResult(200, users);
     }

@@ -6,6 +6,7 @@ import com.tying.service.ILoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -23,5 +24,11 @@ public class LoginController {
 
         ResponseResult responseResult = loginService.login(user);
         return responseResult;
+    }
+
+    @RequestMapping("/user/logout")
+    public ResponseResult logout() {
+
+        return loginService.logout();
     }
 }

@@ -1,5 +1,6 @@
 package com.tying.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.tying.domain.User;
 
 import java.util.List;
@@ -8,11 +9,7 @@ import java.util.List;
  * @author Tying
  * @version 1.0
  */
-public interface IUserService {
+public interface IUserService extends IService<User> {
 
-    /**
-     * 查询所有的 User 数据
-     * @return
-     */
-    public List<User> findAll();
+    List<User> selfDefFunc();
 }

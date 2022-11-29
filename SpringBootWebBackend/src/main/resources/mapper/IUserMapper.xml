@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.tying.mapper.IUserMapper">
-    <select id="findAll" resultType="com.tying.domain.User">
-        select * from user
+<!--    <select id="findMyUser" resultType="com.tying.domain.User">
+        select * from sys_user where id = 1
+    </select>-->
+
+    <!-- 注意，对 wrapper 取值要用 ${} 不能用 #{} -->
+    <select id="findMyUserByWrapper" resultType="com.tying.domain.User">
+        select * from sys_user ${ew.customSqlSegment}
     </select>
 </mapper>

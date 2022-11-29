@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -26,9 +27,6 @@ public class LoginServiceImpl implements ILoginService {
 
     @Autowired
     private AuthenticationManager authenticationManager;
-
-/*    @Autowired
-    private RedisCache redisCache;*/
 
     @Resource
     private JsonRedisUtils<LoginUser> loginUserJsonRedisUtils;
@@ -54,9 +52,22 @@ public class LoginServiceImpl implements ILoginService {
         HashMap<String, String> map = new HashMap<>(1);
         map.put("token", jwt);
         // 把完整的用户信息存入 redis， userId 作为 key
-        //redisCache.setCacheObject("login:" + id, loginUser);
         loginUserJsonRedisUtils.setValue("login:" + id, loginUser);
 
         return new ResponseResult(200, "登陆成功", map);
+    }
+
+    @Override
+    public ResponseResult logout() {
+        // 获取 SecurityContextHolder 中的验证用户信息中的用户Id
+        // 同一个请求中 SecurityContext 对象是同一个，前面经过了JWTAuthenticationTokenFilter 后
+        // SecurityContextHolder 会关联一个当前线程的 SecurityContext
+        UsernamePasswordAuthenticationToken authentication = (UsernamePasswordAuthenticationToken)
+                SecurityContextHolder.getContext().getAuthentication();
+        LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+        Long userId = loginUser.getUser().getId();
+        // 删除 redis 中的值
+        loginUserJsonRedisUtils.del("login:" + userId);
+        return new ResponseResult(200, "注销成功");
     }
 }

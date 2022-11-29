@@ -1,13 +1,16 @@
 package com.tying.domain;
 
-import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * @author Tying
@@ -20,13 +23,35 @@ public class LoginUser implements UserDetails {
 
     private User user;
 
-    public LoginUser(User user) {
+    private List<String> permissions;
+
+    public LoginUser(User user, List<String> permissions) {
         this.user = user;
+        this.permissions = permissions;
     }
 
+    @JsonIgnore
+    private List<SimpleGrantedAuthority> authorities;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        // 只有在首次获取才需要赋值
+        if (authorities != null){
+            return authorities;
+        }
+
+        // 把 permission 中 String 类型的权限信息封装成 SimpleGrantedAuthority 对象
+        authorities = new ArrayList<>();
+        for (String permission : permissions) {
+            SimpleGrantedAuthority authority = new SimpleGrantedAuthority(permission);
+            authorities.add(authority);
+        }
+
+        // 函数式编程
+        /* authorities = permissions
+                .stream()
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());*/
+        return authorities;
     }
 
     @Override

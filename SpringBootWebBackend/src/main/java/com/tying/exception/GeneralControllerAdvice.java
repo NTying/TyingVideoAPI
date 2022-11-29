@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author Tying
  * @version 1.0
  */
-@ControllerAdvice
+//@ControllerAdvice
 public class GeneralControllerAdvice {
 
     public static final Integer UNCLOGGED_IN = 300;
