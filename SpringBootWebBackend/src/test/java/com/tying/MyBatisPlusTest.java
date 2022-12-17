@@ -1,10 +1,8 @@
 package com.tying;
 
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.tying.domain.User;
+import com.tying.domain.entity.User;
 import com.tying.mapper.IUserMapper;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;

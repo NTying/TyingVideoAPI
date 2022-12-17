@@ -1,7 +1,8 @@
 package com.tying.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.tying.domain.User;
+import com.tying.domain.ResponseResult;
+import com.tying.domain.entity.User;
 
 import java.util.List;
 
@@ -11,5 +12,14 @@ import java.util.List;
  */
 public interface IUserService extends IService<User> {
 
-    List<User> selfDefFunc();
+
+    ResponseResult baseUserInfo(Long id);
+
+    ResponseResult updateUserInfo(User user);
+
+    ResponseResult register(User user);
+
+    ResponseResult baseUserInfoList(List<Long> ids);
+
+    ResponseResult fullUserInfo();
 }

@@ -1,7 +1,7 @@
 package com.tying.service;
 
 import com.tying.domain.ResponseResult;
-import com.tying.domain.User;
+import com.tying.domain.entity.User;
 
 /**
  * @author Tying

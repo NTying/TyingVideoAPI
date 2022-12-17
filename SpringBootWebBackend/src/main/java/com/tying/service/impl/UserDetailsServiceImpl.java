@@ -2,19 +2,15 @@ package com.tying.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.tying.domain.LoginUser;
-import com.tying.domain.User;
+import com.tying.domain.entity.User;
 import com.tying.mapper.IMenuMapper;
 import com.tying.mapper.IUserMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 

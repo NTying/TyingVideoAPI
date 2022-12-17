@@ -1,5 +1,6 @@
 package com.tying.resolver;
 
+import com.tying.annotation.CurrentUserId;
 import com.tying.utils.JwtUtils;
 import io.jsonwebtoken.Claims;
 import org.springframework.core.MethodParameter;

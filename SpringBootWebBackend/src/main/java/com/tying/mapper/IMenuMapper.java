@@ -1,7 +1,7 @@
 package com.tying.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.tying.domain.Menu;
+import com.tying.domain.entity.Menu;
 
 import java.util.List;
 

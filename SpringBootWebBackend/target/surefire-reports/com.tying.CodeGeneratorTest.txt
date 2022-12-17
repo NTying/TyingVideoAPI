@@ -1,0 +1,23 @@
+-------------------------------------------------------------------------------
+Test set: com.tying.CodeGeneratorTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 4.203 s <<< FAILURE! - in com.tying.CodeGeneratorTest
+generate  Time elapsed: 4.203 s  <<< ERROR!
+java.lang.RuntimeException: 
+com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at com.tying.CodeGeneratorTest.generate(CodeGeneratorTest.java:66)
+Caused by: com.mysql.cj.jdbc.exceptions.CommunicationsException: 
+Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at com.tying.CodeGeneratorTest.generate(CodeGeneratorTest.java:66)
+Caused by: com.mysql.cj.exceptions.CJCommunicationsException: 
+Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at com.tying.CodeGeneratorTest.generate(CodeGeneratorTest.java:66)
+Caused by: java.net.ConnectException: Connection refused: connect
+	at com.tying.CodeGeneratorTest.generate(CodeGeneratorTest.java:66)
+

@@ -5,8 +5,10 @@ import com.tying.utils.JsonRedisUtils;
 import com.tying.utils.JwtUtils;
 import io.jsonwebtoken.Claims;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.ExceptionTranslationFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Component;
@@ -19,6 +21,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.nio.file.AccessDeniedException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -35,6 +38,9 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
     @Resource
     private JsonRedisUtils<LoginUser> jsonRedisUtils;
+
+    @Resource
+    private AuthenticationEntryPoint authenticationEntryPoint;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -55,15 +61,18 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             Claims claims = JwtUtils.parseJWT(token);
             userId = claims.getSubject();
         } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException("非法 token");
+            //e.printStackTrace();
+            // 结束过滤链
+            SecurityContextHolder.clearContext();
+            this.authenticationEntryPoint.commence(request, response, new AuthenticationException("非法token") {});
+            return;
         }
 
         // 根据 userId 从 redis 获取用户信息
         String redisKey = "login:" + userId;
         LoginUser loginUser = jsonRedisUtils.getValue(redisKey);
 
-        // TODO 获取权限信息封装到 Authentication 对象中
+        // 获取权限信息封装到 Authentication 对象中
         List<GrantedAuthority> authorities = (List<GrantedAuthority>) loginUser.getAuthorities();
         // 存入 SecurityContextHolder
         // 同一个请求中 SecurityContext 对象是同一个，此处 SecurityContextHolder 会关联一个当前线程的 SecurityContext

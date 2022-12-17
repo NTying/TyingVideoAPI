@@ -3,12 +3,8 @@ package com.tying.mapper;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
-import com.tying.domain.User;
-import org.apache.ibatis.annotations.Mapper;
+import com.tying.domain.entity.User;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 /**
  * @author Tying

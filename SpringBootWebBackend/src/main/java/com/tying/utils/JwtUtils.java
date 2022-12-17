@@ -21,7 +21,7 @@ public class JwtUtils {
     /**
      * token 有效时间
      */
-    public static final Long JWT_TTL = 60 * 60 * 1000L;
+    public static Long JWT_TTL = 60 * 60 * 1000L;
     /**
      * 设置密钥明文
      */
@@ -75,10 +75,10 @@ public class JwtUtils {
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
         long nowMillis = System.currentTimeMillis();
         Date now = new Date(nowMillis);
-        if (ttlMillis == null) {
-            ttlMillis = JWT_TTL;
+        if (ttlMillis != null) {
+            JWT_TTL = ttlMillis;
         }
-        long expiredMillis = nowMillis + ttlMillis;
+        long expiredMillis = nowMillis + JWT_TTL;
         Date expiredDate = new Date(expiredMillis);
         SecretKey secretKey = generateKey();
 

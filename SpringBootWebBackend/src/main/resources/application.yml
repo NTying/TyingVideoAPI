@@ -14,6 +14,9 @@ spring:
     proxy-target-class: false
   profiles:
     active: prod
+  servlet:
+    multipart:
+      max-file-size: 5MB
 
 # MyBatis 配置(和下面在 MyBatisPlus 配置一样的作用
 #mybatis:
@@ -42,3 +45,9 @@ mybatis-plus:
       logic-delete-field: delFlag
       logic-delete-value: 1
       logic-not-delete-value: 0
+
+# OSS 配置
+oss:
+  accessKey: 8zwVIdxxSdFagmaYdIH1IKw1WE3-7S8L9hJDpuXO
+  secretKey: u_diTp6PvjqJv9zzK2fSyCIkTQ2Jt7jyW4PaRA7I
+  bucket: tying-video

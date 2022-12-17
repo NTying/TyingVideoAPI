@@ -51,13 +51,13 @@ public class JsonRedisUtils<E> extends BaseRedisUtils<E> {
     /**
      * hash递增 如果不存在,就会创建一个 并把新增后的值返回
      *
-     * @param key
-     * @param entryKey
-     * @param by
+     * @param key: Redis key
+     * @param entryKey: Hash key
+     * @param delta: 递增值
      * @return
      */
-    public double hincr(String key, String entryKey, Double by) {
-        return jsonRedisTemplate.opsForHash().increment(key, entryKey, by);
+    public long hincr(String key, String entryKey, int delta) {
+        return jsonRedisTemplate.opsForHash().increment(key, entryKey, delta);
     }
 
     /**
@@ -65,11 +65,11 @@ public class JsonRedisUtils<E> extends BaseRedisUtils<E> {
      *
      * @param key
      * @param entryKey
-     * @param by
+     * @param delta
      * @return
      */
-    public double hdecr(String key, String entryKey, Double by) {
-        return jsonRedisTemplate.opsForHash().increment(key, entryKey, -by);
+    public long hdecr(String key, String entryKey, int delta) {
+        return jsonRedisTemplate.opsForHash().increment(key, entryKey, -delta);
     }
 
 }

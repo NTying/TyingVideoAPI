@@ -3,16 +3,14 @@ package com.tying;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.tying.domain.Menu;
-import com.tying.domain.Role;
-import com.tying.domain.User;
+import com.tying.domain.entity.Role;
+import com.tying.domain.entity.User;
 import com.tying.mapper.IMenuMapper;
 import com.tying.mapper.IRoleMapper;
 import com.tying.mapper.IUserMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
