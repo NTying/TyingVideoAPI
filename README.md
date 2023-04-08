@@ -1,2 +1,2 @@
 # TyingVideoAPI
-The RESTful API for  TyingVideo application
+The API for  TyingVideo application
